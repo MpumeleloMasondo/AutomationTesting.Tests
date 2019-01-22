@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Windows.Forms;
+using OpenQA.Selenium.Remote;
+using System.Threading;
 
 namespace AutomationTesting.Tests
 {
@@ -13,39 +16,39 @@ namespace AutomationTesting.Tests
     public class CompanyTypeTests : TestBase
     {
 
-        [Test]
-        public void CompanyTypeCreate()
-        {
-            driver.Url = "http://client.racsystems.co.za/Account/Login";
+        //[Test]
+        //public void CompanyTypeCreate()
+        //{
+        //    driver.Url = "http://client.racsystems.co.za/Account/Login";
 
-            //Enter credentials
-            driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
-            driver.FindElement(By.Id("Password")).SendKeys("");
+        //    //Enter credentials
+        //    driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
+        //    driver.FindElement(By.Id("Password")).SendKeys("");
 
-            driver.FindElement(By.ClassName("btn-login")).Click();
+        //    driver.FindElement(By.ClassName("btn-login")).Click();
 
-            //enter validations
-            //Assert.That()
-            driver.Url = "http://client.racsystems.co.za/admin/companytype";
+        //    //enter validations
+        //    //Assert.That()
+        //    driver.Url = "http://client.racsystems.co.za/admin/companytype";
 
-            //driver.FindElement(By.ClassName("tb-add-32")).Click();
+        //    //driver.FindElement(By.ClassName("tb-add-32")).Click();
 
-            // var isInvisible = CheckIfElementInvisible(By.Id("PageLoader"), driver);
+        //    // var isInvisible = CheckIfElementInvisible(By.Id("PageLoader"), driver);
 
-            if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
-                driver.FindElement(By.ClassName("tb-add-32")).Click();
+        //    if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
+        //        driver.FindElement(By.ClassName("tb-add-32")).Click();
 
-            if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
-            {
+        //    if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
+        //    {
 
-                driver.FindElement(By.Id("TypeName")).SendKeys("Sewing Dep");
-                driver.FindElement(By.Id("default-value")).SendKeys("#fff");
-                driver.FindElement(By.Id("IsPublic")).SendKeys("true");
-                driver.FindElement(By.ClassName("save-button")).Click();
-            } 
+        //        driver.FindElement(By.Id("TypeName")).SendKeys("Sewing Dep");
+        //        driver.FindElement(By.Id("default-value")).SendKeys("#fff");
+        //        driver.FindElement(By.Id("IsPublic")).SendKeys("true");
+        //        driver.FindElement(By.ClassName("save-button")).Click();
+        //    } 
 
-        }
-         
+        //}
+
         [Test]
         public void CompanyTypeEdit()
         {
@@ -54,45 +57,53 @@ namespace AutomationTesting.Tests
             //Enter credentials
             driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
             driver.FindElement(By.Id("Password")).SendKeys("");
-
             driver.FindElement(By.ClassName("btn-login")).Click();
-
-            //enter validations
-            //Assert.That()
             driver.Url = "http://client.racsystems.co.za/admin/companytype";
 
-            //driver.FindElement(By.ClassName("tb-add-32")).Click();
+            var elements = driver.FindElements(By.CssSelector("a[class='Toolbar']"));
 
-            // var isInvisible = CheckIfElementInvisible(By.Id("PageLoader"), driver);
-           
-
-            if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
+            if (elements.Count > 0)
             {
+                Random rnd = new Random();
+                int elementNum = rnd.Next(1, elements.Count + 1);
 
-                //driver.FindElement(By.)
-                driver.FindElement(By.ClassName("tb-add-32")).Click();
+                var element = elements[elementNum];
+                var pageId = element.GetAttribute("data-item");
+                driver.Url = "http://client.racsystems.co.za/admin/companytype/edit/" + Convert.ToInt32(pageId);
+                System.Diagnostics.Debug.Write("Company type edit with " + Convert.ToInt32(pageId) + " " + " id");
+
+                if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
+                {
+                    driver.FindElement(By.Id("TypeName")).SendKeys(" Edit");
+
+                    var checkBox = driver.FindElement(By.Id("IsPublic"));
+
+                    if (!checkBox.Selected)
+                        checkBox.Click();
+
+                    // Image selection , instantiating an image
+                    var image = driver.FindElement(By.Id("ImageName"));
+
+                    // Declaring a JavaScriptExecutor  to enable image uploader click function and open the window dialog
+                    IJavaScriptExecutor executor = driver as IJavaScriptExecutor;
+                    executor.ExecuteScript("arguments[0].click();", image);
+                    Thread.Sleep(5000);
+
+                    //Set image name from the dialog
+                    SendKeys.SendWait(@"‪Racnet-Logo.jpg");
+                    SendKeys.SendWait(@"{Enter}");
+                   
+                    driver.FindElement(By.Id("default-value")).Clear();
+                    driver.FindElement(By.Id("default-value")).SendKeys("#eee");
+                    var colorCodePanel = driver.FindElement(By.ClassName("minicolors-panel"));
+
+                    IJavaScriptExecutor js = driver as IJavaScriptExecutor;
+                    js.ExecuteScript("arguments[0].style='display: none;'", colorCodePanel);
+
+                }
             }
 
-            //List<IWebElement> el = new List<IWebElement>(); el.AddRange(driver.FindElements(By.CssSelector("*")));
-
-            //List<string> ag = new List<string>();
-            //for (int b = 0; b < el.Count; b++)
-            //{
-            //    ag.Add(el[b].GetAttribute("outerHTML"));
-            //}
-
-            var elements = driver.FindElements(By.CssSelector("a[class='Toolbar']"));// .GetAttribute("data-item");
-
-            if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
-            {
-
-                driver.FindElement(By.Id("TypeName")).SendKeys("Sewing Dep");
-                driver.FindElement(By.Id("default-value")).SendKeys("#fff");
-                driver.FindElement(By.Id("IsPublic")).SendKeys("true");
-                driver.FindElement(By.ClassName("save-button")).Click();
-            }
-
-          //  driver.FindElement(By.XPath("[@gl-command='transaction']")).Click();
+            driver.FindElement(By.ClassName("save-button")).Click();
         }
 
         public static bool CheckIfElementInvisible(By by, IWebDriver driver)
@@ -111,7 +122,6 @@ namespace AutomationTesting.Tests
             }
 
             return true;
-        } 
-
+        }
     }
 }
