@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
 
 namespace AutomationTesting.Tests
 {
@@ -32,6 +33,27 @@ namespace AutomationTesting.Tests
         public void Cleanup()
         {
             driver.Quit();
+        }
+    }
+
+   public class Helpers
+    {
+        public static bool CheckIfElementInvisible(By by, IWebDriver driver)
+        {
+            var _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            try
+            {
+                _wait.Until(drv => !drv.FindElement(by).Displayed);
+                System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is visible");
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is not found |" + " " + e.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }

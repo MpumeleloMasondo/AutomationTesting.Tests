@@ -16,38 +16,29 @@ namespace AutomationTesting.Tests
     public class CompanyTypeTests : TestBase
     {
 
-        //[Test]
-        //public void CompanyTypeCreate()
-        //{
-        //    driver.Url = "http://client.racsystems.co.za/Account/Login";
+        [Test]
+        public void CompanyTypeCreate()
+        {
+            driver.Url = "http://client.racsystems.co.za/Account/Login";
 
-        //    //Enter credentials
-        //    driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
-        //    driver.FindElement(By.Id("Password")).SendKeys("");
+            //Enter credentials
+            driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
+            driver.FindElement(By.Id("Password")).SendKeys("");
+            driver.FindElement(By.ClassName("btn-login")).Click();
+            driver.Url = "http://client.racsystems.co.za/admin/companytype";
 
-        //    driver.FindElement(By.ClassName("btn-login")).Click();
+            if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
+                driver.FindElement(By.ClassName("tb-add-32")).Click();
 
-        //    //enter validations
-        //    //Assert.That()
-        //    driver.Url = "http://client.racsystems.co.za/admin/companytype";
+            if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
+            {
 
-        //    //driver.FindElement(By.ClassName("tb-add-32")).Click();
-
-        //    // var isInvisible = CheckIfElementInvisible(By.Id("PageLoader"), driver);
-
-        //    if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
-        //        driver.FindElement(By.ClassName("tb-add-32")).Click();
-
-        //    if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
-        //    {
-
-        //        driver.FindElement(By.Id("TypeName")).SendKeys("Sewing Dep");
-        //        driver.FindElement(By.Id("default-value")).SendKeys("#fff");
-        //        driver.FindElement(By.Id("IsPublic")).SendKeys("true");
-        //        driver.FindElement(By.ClassName("save-button")).Click();
-        //    } 
-
-        //}
+                driver.FindElement(By.Id("TypeName")).SendKeys("Sewing Dep");
+                driver.FindElement(By.Id("default-value")).SendKeys("#fff");
+                driver.FindElement(By.Id("IsPublic")).SendKeys("true");
+                driver.FindElement(By.ClassName("save-button")).Click();
+            }
+        }
 
         [Test]
         public void CompanyTypeEdit()
@@ -55,8 +46,8 @@ namespace AutomationTesting.Tests
             driver.Url = "http://client.racsystems.co.za/Account/Login";
 
             //Enter credentials
-            driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
-            driver.FindElement(By.Id("Password")).SendKeys("");
+            driver.FindElement(By.Id("LoginName")).SendKeys("pu]as"); //Password
+            driver.FindElement(By.Id("Password")).SendKeys("pu]as123");
             driver.FindElement(By.ClassName("btn-login")).Click();
             driver.Url = "http://client.racsystems.co.za/admin/companytype";
 
@@ -72,7 +63,7 @@ namespace AutomationTesting.Tests
                 driver.Url = "http://client.racsystems.co.za/admin/companytype/edit/" + Convert.ToInt32(pageId);
                 System.Diagnostics.Debug.Write("Company type edit with " + Convert.ToInt32(pageId) + " " + " id");
 
-                if (CheckIfElementInvisible(By.Id("PageLoader"), driver))
+                if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
                 {
                     driver.FindElement(By.Id("TypeName")).SendKeys(" Edit");
 
@@ -92,7 +83,7 @@ namespace AutomationTesting.Tests
                     //Set image name from the dialog
                     SendKeys.SendWait(@"‪Racnet-Logo.jpg");
                     SendKeys.SendWait(@"{Enter}");
-                   
+
                     driver.FindElement(By.Id("default-value")).Clear();
                     driver.FindElement(By.Id("default-value")).SendKeys("#eee");
                     var colorCodePanel = driver.FindElement(By.ClassName("minicolors-panel"));
@@ -104,24 +95,6 @@ namespace AutomationTesting.Tests
             }
 
             driver.FindElement(By.ClassName("save-button")).Click();
-        }
-
-        public static bool CheckIfElementInvisible(By by, IWebDriver driver)
-        {
-            var _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-            try
-            {
-                _wait.Until(drv => !drv.FindElement(by).Displayed);
-                System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is visible");
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is not found |" + " " + e.Message);
-                return false;
-            }
-
-            return true;
         }
     }
 }
