@@ -19,12 +19,7 @@ namespace AutomationTesting.Tests
         [Test]
         public void CompanyTypeCreate()
         {
-            driver.Url = "http://client.racsystems.co.za/Account/Login";
-
-            //Enter credentials
-            driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
-            driver.FindElement(By.Id("Password")).SendKeys("");
-            driver.FindElement(By.ClassName("btn-login")).Click();
+            
             driver.Url = "http://client.racsystems.co.za/admin/companytype";
 
             if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
@@ -43,12 +38,6 @@ namespace AutomationTesting.Tests
         [Test]
         public void CompanyTypeEdit()
         {
-            driver.Url = "http://client.racsystems.co.za/Account/Login";
-
-            //Enter credentials
-            driver.FindElement(By.Id("LoginName")).SendKeys("pu]as"); //Password
-            driver.FindElement(By.Id("Password")).SendKeys("pu]as123");
-            driver.FindElement(By.ClassName("btn-login")).Click();
             driver.Url = "http://client.racsystems.co.za/admin/companytype";
 
             var elements = driver.FindElements(By.CssSelector("a[class='Toolbar']"));

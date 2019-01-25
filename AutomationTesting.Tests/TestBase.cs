@@ -27,6 +27,13 @@ namespace AutomationTesting.Tests
             driver = new FirefoxDriver("E:/inetpub/wwwroot/TestAutomation/AutomationTesting.Tests/AutomationTesting.Tests/bin/Debug"); // Launches browser
             driver.Manage().Window.Maximize(); // Maximise browser window
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20); // Set locatorTimeout to be 20n secs at max
+
+            driver.Url = "http://client.racsystems.co.za/Account/Login";
+
+            //Enter credentials
+            driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
+            driver.FindElement(By.Id("Password")).SendKeys("");
+            driver.FindElement(By.ClassName("btn-login")).Click();
         }
 
         [TearDown]
