@@ -51,17 +51,13 @@ namespace AutomationTesting.Tests
                 executor.ExecuteScript(string.Format("$('#{0}').data('kendoEditor').value('{1}')", "Description", "This Description is written using automation."));
                 executor.ExecuteScript(string.Format("$('#{0}').data('kendoEditor').value('{1}')", "InternalNote", "This InternalNote is written using automation."));
                 driver.FindElement(By.ClassName("save-button")).Click();
+
             }
         }
 
         [Test]
         public void CompanyEdit()
-        {
-
-            driver.FindElement(By.Id("AdminCard")).Click();
-
-            if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
-                driver.FindElement(By.LinkText("Companies")).Click();
+        { 
 
             //driver.Url = "http://client.racsystems.co.za/admin/company";
 
@@ -85,7 +81,7 @@ namespace AutomationTesting.Tests
                 }
 
                 var pageId = element.GetAttribute("data-item");
-                driver.Url = "http://client.racsystems.co.za/admin/company/edit/" + Convert.ToInt32(pageId);
+                driver.Url = "http://client.racsystems.co.za/admin/company/edit/232"; //+ Convert.ToInt32(pageId);
                 System.Diagnostics.Debug.Write("Company type edit with " + Convert.ToInt32(pageId) + " " + " id");
 
                 if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
@@ -109,7 +105,24 @@ namespace AutomationTesting.Tests
                     driver.FindElement(By.Id("ExpiryDate")).SendKeys("12/12/2031");
                     executor.ExecuteScript(string.Format("$('#{0}').data('kendoEditor').value('{1}')", "Description", "This Description is edited using automation."));
                     executor.ExecuteScript(string.Format("$('#{0}').data('kendoEditor').value('{1}')", "InternalNote", "This InternalNote is edited using automation."));
-                    driver.FindElement(By.ClassName("save-button")).Click();
+
+                    //Edit contact details 
+                    driver.FindElement(By.LinkText("Contact Details")).Click();
+                    Thread.Sleep(2000);
+                    driver.FindElement(By.CssSelector("a[class='k-button k-button-icontext k-grid-add']")).Click();
+                    Thread.Sleep(2000);
+                    executor.ExecuteScript(string.Format("$('#{0}').data('kendoDropDownList').value('{1}')", "ContactInformationTypeId", "3"));
+                    driver.FindElement(By.Id("InformationValue")).SendKeys("email@gmil.com");
+                    //driver.FindElement(By.Id("OrderIndex")).SendKeys("2");
+                    //executor.ExecuteScript(string.Format("$('#{0}').data('kendoNumericTextBox').value('{1}')", "OrderIndex", "2"));
+                    // executor.ExecuteScript(string.Format("$('#{0}').data('kendoEditor').value('{1}')", "InternalNote", "Contact details create InternalNote is edited using automation."));
+                    //driver.FindElement(By.LinkText("Create")).Click();
+                    Thread.Sleep(2000);
+                    driver.FindElement(By.CssSelector("a[class='k-button k-button-icontext k-primary k-grid-update']")).Click();
+                    //Thread.Sleep(2000);
+
+                    if (Helpers.CheckIfElementInvisible(By.CssSelector("div[class='k-overlay']"), driver))
+                        driver.FindElement(By.ClassName("save-button")).Click();
 
                 }
             }

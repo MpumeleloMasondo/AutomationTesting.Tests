@@ -31,8 +31,8 @@ namespace AutomationTesting.Tests
             driver.Url = "http://client.racsystems.co.za/Account/Login";
 
             //Enter credentials
-            driver.FindElement(By.Id("LoginName")).SendKeys(""); //Password
-            driver.FindElement(By.Id("Password")).SendKeys("");
+            driver.FindElement(By.Id("LoginName")).SendKeys("spikeyhair4me"); //Password
+            driver.FindElement(By.Id("Password")).SendKeys("ricroc123");
             driver.FindElement(By.ClassName("btn-login")).Click();
         }
 
@@ -51,6 +51,24 @@ namespace AutomationTesting.Tests
             try
             {
                 _wait.Until(drv => !drv.FindElement(by).Displayed);
+                System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is not visible");
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is found |" + " " + e.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool CheckIfElementIsVisible(By by, IWebDriver driver)
+        {
+            var _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            try
+            {
+                _wait.Until(drv => drv.FindElement(by).Displayed);
                 System.Diagnostics.Debug.Write("Element" + " " + @by + " " + "is visible");
 
             }
