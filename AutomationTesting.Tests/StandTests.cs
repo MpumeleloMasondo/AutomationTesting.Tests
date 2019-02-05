@@ -13,6 +13,7 @@ namespace AutomationTesting.Tests
     [TestFixture]
     public class StandTests : TestBase
     {
+        //Completed
         [Test]
         public void StandView()
         {
@@ -40,6 +41,7 @@ namespace AutomationTesting.Tests
             }
         }
 
+        //Completed
         [Test]
         public void StandCreate()
         {
@@ -135,6 +137,7 @@ namespace AutomationTesting.Tests
             }
         }
 
+        //Edit map view and photo gallery(Binding of image)
         [Test]
         public void StandEdit()
         {
@@ -235,6 +238,7 @@ namespace AutomationTesting.Tests
             }
         }
 
+        //Complete
         [Test]
         public void StandDetails()
         {
@@ -333,6 +337,7 @@ namespace AutomationTesting.Tests
             }
         }
 
+        //Complete
         [Test]
         public void StandDelete()
         {

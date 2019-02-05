@@ -76,6 +76,7 @@
     <Compile Include="PhotoAlbumTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteTests.cs" />
+    <Compile Include="OccupantTests.cs" />
     <Compile Include="SiteTypeTests.cs" />
     <Compile Include="StandTests.cs" />
     <Compile Include="TestBase.cs" />

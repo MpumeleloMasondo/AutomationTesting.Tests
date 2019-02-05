@@ -13,6 +13,7 @@ namespace AutomationTesting.Tests
     [TestFixture]
     public class VehicleTests : TestBase
     {
+        //Completed
         [Test]
         public void VehicleIndexView()
         {
@@ -192,7 +193,6 @@ namespace AutomationTesting.Tests
             }
 
         }
-
-
+         
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomationTesting.Tests
 {
-    class SiteTypeTests
+    public class SiteTypeTests
     {
     }
 }

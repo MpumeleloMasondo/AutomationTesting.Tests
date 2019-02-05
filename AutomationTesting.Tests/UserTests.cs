@@ -12,6 +12,7 @@ namespace AutomationTesting.Tests
     [TestFixture]
     public class UserTests : TestBase
     {
+        //Completed
         [Test]
         public void UserIndexView()
         {
@@ -32,6 +33,7 @@ namespace AutomationTesting.Tests
 
         }
 
+        //Completed
         [Test]
         public void UserCreate()
         {
@@ -69,6 +71,7 @@ namespace AutomationTesting.Tests
 
         }
 
+        //Completed
         [Test]
         public void UserEdit()
         {
@@ -157,7 +160,8 @@ namespace AutomationTesting.Tests
             driver.FindElement(By.ClassName("save-button")).Click();
         }
 
-
+        //Need to link person or guard to the user
+        //Add change password functions
         [Test]
         public void UserDetails()
         {
@@ -199,7 +203,8 @@ namespace AutomationTesting.Tests
                 Thread.Sleep(2000);
             }
         }
-
+        
+        //Completed
         [Test]
         public void UserDelete()
         {
