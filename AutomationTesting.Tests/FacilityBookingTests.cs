@@ -13,6 +13,7 @@ namespace AutomationTesting.Tests
     class FacilityBookingTests : TestBase
     {
         [Test]
+        public void FacilityBookingIndexView()
         {
             driver.FindElement(By.Id("AdminCard")).Click();
 
