@@ -81,7 +81,7 @@ namespace AutomationTesting.Tests
                 }
 
                 var pageId = element.GetAttribute("data-item");
-                driver.Url = "http://client.racsystems.co.za/admin/company/edit/232"; //+ Convert.ToInt32(pageId);
+                driver.Url = "http://client.racsystems.co.za/admin/company/edit/232";
                 System.Diagnostics.Debug.Write("Company type edit with " + Convert.ToInt32(pageId) + " " + " id");
 
                 if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))

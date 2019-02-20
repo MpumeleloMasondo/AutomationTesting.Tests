@@ -17,6 +17,7 @@ namespace AutomationTesting.Tests
         {
             driver.FindElement(By.Id("AdminCard")).Click();
 
+            //Should scroll through the page till it gets to the 'Test Drives' link
             if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
                 driver.FindElement(By.LinkText("Test Drives")).Click();
 

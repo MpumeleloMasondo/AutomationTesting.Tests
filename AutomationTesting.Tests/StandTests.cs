@@ -171,6 +171,7 @@ namespace AutomationTesting.Tests
 
                 IJavaScriptExecutor executor = driver as IJavaScriptExecutor;
 
+                //need to check drop downs are populated
                 executor.ExecuteScript(string.Format("$('#{0}').data('kendoDropDownList').value('{1}')", "StandTypeId", "2"));
                 executor.ExecuteScript(string.Format("$('#{0}').data('kendoDropDownList').value('{1}')", "SiteLocationId", "3"));
                 driver.FindElement(By.Id("StreetNumber")).SendKeys("122311");
@@ -270,7 +271,7 @@ namespace AutomationTesting.Tests
             if (Helpers.CheckIfElementInvisible(By.Id("PageLoader"), driver))
             {
                 Thread.Sleep(2000);
-
+                //check if zoom button is available
                 driver.FindElement(By.LinkText("Zoom")).Click();
                 Thread.Sleep(2000);
                 driver.FindElement(By.ClassName("pp_close")).Click();
